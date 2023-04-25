@@ -18,8 +18,10 @@ public class BeanList : MonoBehaviour
         {
             if (child != transform) Destroy(child.gameObject); 
         }
+        // I want to implement the ability to read files at some point in the future but for now I'm just using a PlayerPrefs string.
         fileContent = PlayerPrefs.GetString("savedBeans");
-        if (fileContent != "failed")
+        //Debug.Log(fileContent);
+        if (fileContent != "failed" && fileContent != "")
         {
             fileLinesArr = fileContent.Split("|");
             Vector2 newSize = new (thisRect.rect.size.x, fileLinesArr.Length * 200);
@@ -31,13 +33,11 @@ public class BeanList : MonoBehaviour
             {
                 GameObject newButton = Instantiate(buttonToAdd);
                 newButton.transform.SetParent(transform, false);
-                TextMeshProUGUI buttonText = newButton.GetComponentInChildren<TextMeshProUGUI>();
                 RectTransform buttonRect = newButton.GetComponent<RectTransform>();
                 BeanEntry buttonEntryScript = newButton.GetComponentInChildren<BeanEntry>();
                 buttonEntryScript.value = fileLinesArr[i];
                 buttonEntryScript.index = i;
                 buttonRect.anchoredPosition = new Vector2(0, -200 * i - 100);
-                buttonText.text = fileLinesArr[i];
             }
         }
     }

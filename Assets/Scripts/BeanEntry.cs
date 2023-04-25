@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class BeanEntry : MonoBehaviour
 {
@@ -9,38 +9,47 @@ public class BeanEntry : MonoBehaviour
     public string value;
     List<string> fileLinesList;
     string outputString;
-    // Start is called before the first frame update
+    CustomGenerator cg;
+    string buttonText;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        cg = Camera.main.GetComponent<CustomGenerator>();
+        TextMeshProUGUI thisText = GetComponentInChildren<TextMeshProUGUI>();
+        foreach(string stat in value.Split(","))
+        {
+            buttonText += stat;
+            buttonText += " / ";
+        }
+        buttonText = buttonText.Remove(buttonText.Length - 3);
+        thisText.text = buttonText;
     }
     public void RemoveFromList()
     {
         string fileContent = PlayerPrefs.GetString("savedBeans");
-        string[] fileLinesArr = fileContent.Split("|");
-        fileLinesList = new List<string>();
-        foreach (string arrItem in fileLinesArr)
+        if (fileContent.Contains("|"))
         {
-            fileLinesList.Add(arrItem);
+            string[] fileLinesArr = fileContent.Split("|");
+            fileLinesList = new List<string>();
+            foreach (string arrItem in fileLinesArr)
+            {
+                fileLinesList.Add(arrItem);
+            }
+            fileLinesList.RemoveAt(index);
+            foreach (string listItem in fileLinesList)
+            {
+                outputString += listItem + "|";
+            }
+            outputString = outputString.Remove(outputString.Length - 1);
         }
-        fileLinesList.RemoveAt(index);
-        foreach (string listItem in fileLinesList)
-        {
-            outputString += listItem + "|";
-        }
-        if(outputString != "") outputString = outputString.Remove(outputString.Length-1);
+        else outputString = "";
         PlayerPrefs.SetString("savedBeans", outputString);
         GetComponentInParent<BeanList>().Refresh();
     }
 
     public void LoadBean()
     {
-        
+        string[] valList = value.Split(",");
+        cg.LoadBean(valList);
     }
 }

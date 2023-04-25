@@ -46,10 +46,7 @@ public class BeanGenerator : MonoBehaviour
         PlayerPrefsX.SetQuaternionArray("nextRoundStats", blankStatArray);
         PlayerPrefsX.SetStringArray("beanNames", blankNameArray);
         PlayerPrefsX.SetStringArray("nextRoundNames", blankNameArray);
-        PlayerPrefs.SetString("savedBeans", "1,2,3|5,6,7");
         PlayerPrefsX.SetBool("AutoMode", false);
-
-        PlayerPrefs.SetString("savedBeans", "bob,80,1,0,0|bluerasb,50,10,0,0|locton,70,9,0,0");
     }
 
     // Update is called once per frame

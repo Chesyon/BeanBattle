@@ -44,6 +44,9 @@ public class CustomGenerator : MonoBehaviour
 
     public GameObject beanSelect;
     public BeanList beanListScript;
+    public Button BeanListButton;
+    public Button SaveBeanButton;
+    public GameObject beanPreview;
 
     void Awake()
     {
@@ -75,7 +78,7 @@ public class CustomGenerator : MonoBehaviour
             Color colorToUse = Color.HSVToRGB(UnityEngine.Random.value, 1, 1);
             thisRoundBeans.Add(colorToUse);
             int hatNum = UnityEngine.Random.Range(0, 11);
-            Quaternion statsToUse = new (i + 1, hatNum, 0, 0);
+            Quaternion statsToUse = new(i + 1, hatNum, 0, 0);
             thisRoundStats.Add(statsToUse);
             string nameToUse = "Bean " + statsToUse.x.ToString();
             thisRoundNames.Add(nameToUse);
@@ -91,6 +94,8 @@ public class CustomGenerator : MonoBehaviour
             DispStats();
             startButton.interactable = true;
             colorSlider.interactable = true;
+            BeanListButton.interactable = true;
+            SaveBeanButton.interactable = true;
         }
     }
     public void DisplayBeanColor()
@@ -109,7 +114,7 @@ public class CustomGenerator : MonoBehaviour
 
     public void SetBeanColorSlider()
     {
-        thisRoundBeans[beanSelected-1] = Color.HSVToRGB(colorSlider.value, 1, 1);
+        thisRoundBeans[beanSelected - 1] = Color.HSVToRGB(colorSlider.value, 1, 1);
         cosLoader.gameObject.GetComponent<MeshRenderer>().material.color = Color.HSVToRGB(colorSlider.value, 1, 1);
         colorInputText.text = Mathf.RoundToInt((colorSlider.value * 100)).ToString();
         ReloadCos();
@@ -139,14 +144,14 @@ public class CustomGenerator : MonoBehaviour
 
     public void DispStats()
     {
-        for(int i = 0; i < 3; i++) statFields[i].text = thisRoundStats[beanSelected - 1][i + 1].ToString();
+        for (int i = 0; i < 3; i++) statFields[i].text = thisRoundStats[beanSelected - 1][i + 1].ToString();
         ReloadCos();
     }
 
     public void StatChange(int stat)
     {
         foreach (InputField epicField in statFields) if (epicField.text.Length == 0) epicField.text = "0";
-        if (stat == 1) 
+        if (stat == 1)
         {
             thisRoundStats[beanSelected - 1] = new Quaternion(beanSelected, float.Parse(statFields[0].text), thisRoundStats[beanSelected - 1].z, thisRoundStats[beanSelected - 1].w);
             cosLoader.transform.eulerAngles = new Vector3(0, 0, 0);
@@ -163,21 +168,54 @@ public class CustomGenerator : MonoBehaviour
 
     public void CloseBeanList()
     {
+        foreach (MeshRenderer mr in beanPreview.GetComponentsInChildren<MeshRenderer>())
+        {
+            mr.enabled = true;
+        }
         beanSelect.SetActive(false);
+        startButton.interactable = true;
+        colorSlider.interactable = true;
+        BeanListButton.interactable = true;
+        SaveBeanButton.interactable = true;
     }
 
     public void OpenBeanList()
     {
         beanListScript.Refresh();
+        foreach (MeshRenderer mr in beanPreview.GetComponentsInChildren<MeshRenderer>())
+        {
+            mr.enabled = false;
+        }
         beanSelect.SetActive(true);
+        startButton.interactable = false;
+        colorSlider.interactable = false;
+        BeanListButton.interactable = false;
+        SaveBeanButton.interactable = false;
     }
 
     public void SaveCurrentBean()
     {
         string currentBeans = PlayerPrefs.GetString("savedBeans");
-        currentBeans += "|" + nameInput.text + "," + colorInputText.text + "," + statFields[0].text + "," + statFields[1].text + "," + statFields[2].text;
+        if (currentBeans != "") currentBeans += "|";
+        currentBeans += nameInput.text + "," + colorInputText.text + "," + statFields[0].text + "," + statFields[1].text + "," + statFields[2].text;
         PlayerPrefs.SetString("savedBeans", currentBeans);
     }
+
+    public void LoadBean(string[] valList)
+    {
+        nameInput.text = valList[0];
+        SetBeanName();
+        colorInputText.text = valList[1];
+        SetBeanColorText();
+        statFields[0].text = valList[2];
+        StatChange(1);
+        statFields[1].text = valList[3];
+        StatChange(2);
+        statFields[2].text = valList[4];
+        StatChange(3);
+        CloseBeanList();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -200,6 +238,8 @@ public class CustomGenerator : MonoBehaviour
             }
             startButton.interactable = false;
             colorSlider.interactable = false;
+            BeanListButton.interactable = false;
+            SaveBeanButton.interactable = false;
             colorSlider.value = 0;
         }
     }
