@@ -8,14 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- An auto mode. Rounds will automatically advance after you start when this option is on.
 - Bean saving. In the custom menu, you can save and load beans.
+- An auto mode. Rounds will automatically advance after you start when this option is on.
 
 ### Changed
 
 - The menu background now shows the color and opposite color of the previous winner.
 - The custom battle menu background matches the main menu background, but is dimmer.
 - The camera now uses Cinemachine to switch between positions, making it much smoother and more efficient.
+- Beans will now be considered "dead" at Y level -1 instead of 0, opening the oppurtunity for epic comebacks.
+
+### Fixed
+
+- Hats will no longer clip through the background of the match intro. 
+- Similarly, the match intro background has been adjusted to fill the entire screen.
 
 ## [o.3.o] - 2022-09-28
 
