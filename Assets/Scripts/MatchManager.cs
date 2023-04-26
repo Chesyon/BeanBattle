@@ -9,6 +9,7 @@ public class MatchManager : MonoBehaviour
     public List<GameObject> beanList; // a list so we can access each bean
     bool firstWinFrame; //almost all of the win code is run on the first frame and shouldn't be run more then once
     public AudioSource fallSound; //the sound for when a bean falls
+    public float deathYLevel;
 
     //playerprefsx stuff
     List<Color> nextRoundBeansList;
@@ -111,7 +112,7 @@ public class MatchManager : MonoBehaviour
     {
         foreach(GameObject Bean in beanList)
         {
-            if(Bean.transform.position.y <= 0)
+            if(Bean.transform.position.y <= deathYLevel)
             {
                 //make bean die lol
                 Bean.GetComponent<BeanAI>().die = true;

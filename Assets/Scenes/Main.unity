@@ -681,19 +681,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 587711223bb445d4082c8b184e849674, type: 3}
       propertyPath: m_LocalScale.x
-      value: 324.07
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 587711223bb445d4082c8b184e849674, type: 3}
       propertyPath: m_LocalScale.y
-      value: 324.07
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 587711223bb445d4082c8b184e849674, type: 3}
       propertyPath: m_LocalScale.z
-      value: 324.07
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 587711223bb445d4082c8b184e849674, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.62
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 587711223bb445d4082c8b184e849674, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4303,6 +4303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   beanList: []
   fallSound: {fileID: 1374942068}
+  deathYLevel: -1
   blankColorList: []
   blankStatList: []
   blankNameList: []
@@ -4330,6 +4331,7 @@ MonoBehaviour:
   bean2Cull:
     serializedVersion: 2
     m_Bits: 255
+  winTime: 0
 --- !u!4 &1374942070
 Transform:
   m_ObjectHideFlags: 0
