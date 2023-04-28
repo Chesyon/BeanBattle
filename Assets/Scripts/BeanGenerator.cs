@@ -54,7 +54,7 @@ public class BeanGenerator : MonoBehaviour
     {
         try
         {
-            BeanCount = (int)Mathf.Pow(2, int.Parse(roundField.text));
+            BeanCount = (int)Mathf.Pow(4, int.Parse(roundField.text));
         }
         catch (FormatException)
         {
@@ -85,7 +85,7 @@ public class BeanGenerator : MonoBehaviour
         names = thisRoundNames.ToArray();
         PlayerPrefsX.SetStringArray("beanNames", names);
         PlayerPrefs.SetInt("maxRounds", int.Parse(roundField.text));
-        PlayerPrefs.SetInt("maxMatches", BeanCount / 2);
+        PlayerPrefs.SetInt("maxMatches", BeanCount / 4);
         SceneManager.LoadScene(1);
     }
     public void GoToCustom()

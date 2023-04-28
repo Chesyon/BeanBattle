@@ -28,6 +28,8 @@ public class MatchIntro : MonoBehaviour
         }
         beanList[0].gameObject.transform.position = new Vector3(0, 7.25f, 2);
         beanList[1].gameObject.transform.position = new Vector3(0, 5.25f, -2);
+        beanList[2].gameObject.transform.position = new Vector3(0, 7.25f, 4);
+        beanList[3].gameObject.transform.position = new Vector3(0, 5.25f, -4);
         countdown = startingCountdown;
         for(int i = 0; i < 2; i++)
         {
@@ -54,6 +56,8 @@ public class MatchIntro : MonoBehaviour
             }
             beanList[0].gameObject.transform.position = new Vector3(0, 1, 4);
             beanList[1].gameObject.transform.position = new Vector3(0, 1, -4);
+            beanList[2].gameObject.transform.position = new Vector3(4, 1, 0);
+            beanList[3].gameObject.transform.position = new Vector3(-4, 1, 0);
             firstCountdownEndFrame = false;
             foreach(GameObject enableObject in objectsToEnable)
             {

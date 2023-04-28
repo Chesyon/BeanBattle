@@ -221,7 +221,7 @@ public class CustomGenerator : MonoBehaviour
     {
         try
         {
-            BeanCount = (int)Mathf.Pow(2, Int32.Parse(roundField.text));
+            BeanCount = (int)Mathf.Pow(4, Int32.Parse(roundField.text));
         }
         catch (FormatException)
         {

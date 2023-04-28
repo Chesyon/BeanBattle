@@ -116,6 +116,7 @@ public class MatchManager : MonoBehaviour
             {
                 //make bean die lol
                 Bean.GetComponent<BeanAI>().die = true;
+                fallSound.Play();
                 beanList.Remove(Bean);
                 break;
             }
@@ -128,7 +129,6 @@ public class MatchManager : MonoBehaviour
             {
                 if (firstWinFrame)
                 {
-                    fallSound.Play();
                     Bean.GetComponent<Collider>().isTrigger = true;
                     BeanAI winBeanAI = Bean.GetComponent<BeanAI>();
                     winBeanAI.isActive = false;
@@ -143,6 +143,8 @@ public class MatchManager : MonoBehaviour
                     PlayerPrefsX.SetColorArray("nextRoundBeans", nextRoundBeansList.ToArray());
 
                     beanColorsList = new List<Color>(beanColors);
+                    beanColorsList.RemoveAt(3);
+                    beanColorsList.RemoveAt(2);
                     beanColorsList.RemoveAt(1);
                     beanColorsList.RemoveAt(0);
                     PlayerPrefsX.SetColorArray("beanColors", beanColorsList.ToArray());
@@ -155,6 +157,8 @@ public class MatchManager : MonoBehaviour
                     PlayerPrefsX.SetQuaternionArray("nextRoundStats", nextRoundStatsList.ToArray());
 
                     beanStatsList = new List<Quaternion>(beanStats);
+                    beanStatsList.RemoveAt(3);
+                    beanStatsList.RemoveAt(2);
                     beanStatsList.RemoveAt(1);
                     beanStatsList.RemoveAt(0);
                     PlayerPrefsX.SetQuaternionArray("beanStats", beanStatsList.ToArray());
@@ -167,6 +171,8 @@ public class MatchManager : MonoBehaviour
                     PlayerPrefsX.SetStringArray("nextRoundNames", nextRoundNamesList.ToArray());
 
                     beanNamesList = new List<string>(beanNames);
+                    beanNamesList.RemoveAt(3);
+                    beanNamesList.RemoveAt(2);
                     beanNamesList.RemoveAt(1);
                     beanNamesList.RemoveAt(0);
                     PlayerPrefsX.SetStringArray("beanNames", beanNamesList.ToArray());

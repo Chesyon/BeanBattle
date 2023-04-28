@@ -1,8 +1,13 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BeanAI : MonoBehaviour
 {
     GameObject Enemy;
+    GameObject[] gos;
+    List<GameObject> Enemies;
+    int thisBeanID;
     Rigidbody rb;
     Vector3 objectForward;
     float cooldown;
@@ -44,6 +49,20 @@ public class BeanAI : MonoBehaviour
             thisBeanName = beanNames[1];
             //do other stuff with stats here
         }
+        if (gameObject.name == "Bean 3")
+        {
+            gameObject.GetComponent<MeshRenderer>().material.color = beanColors[2];
+            thisBeanStats = beanStats[2];
+            thisBeanName = beanNames[2];
+            //do other stuff with stats here
+        }
+        if (gameObject.name == "Bean 4")
+        {
+            gameObject.GetComponent<MeshRenderer>().material.color = beanColors[3];
+            thisBeanStats = beanStats[3];
+            thisBeanName = beanNames[3];
+            //do other stuff with stats here
+        }
         Color selfColor = gameObject.GetComponent<MeshRenderer>().material.color;
         TrailRenderer tr = GetComponentInChildren<TrailRenderer>();
         tr.startColor = selfColor;
@@ -56,13 +75,15 @@ public class BeanAI : MonoBehaviour
         cooldown = 2;
         rb = gameObject.GetComponent<Rigidbody>();
         // find the enemy by going through all gameobjects and finding the one that is on the bean layer and isn't this gameobject
-        GameObject[] gos = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+        gos = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+        Enemies = new List<GameObject>();
         foreach(GameObject go in gos)
         {
             if (go.layer == 3 && go != gameObject)
-                Enemy = go;
+            {
+                Enemies.Add(go);
+            }
         }
-
     }
 
     // Update is called once per frame
@@ -76,6 +97,19 @@ public class BeanAI : MonoBehaviour
             if (isActive)
             {
                 rb.isKinematic = false;
+                //pick a target (may need revision)
+                int closestBeanIndex = 9999;
+                float closestDistance = 9999;
+                for(int i = 0; i < Enemies.Count - 1; i++)
+                {
+                    float distance = Vector3.Distance(transform.position, Enemies[i].transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestBeanIndex = i;
+                    }
+                }
+                Enemy = Enemies[closestBeanIndex];
                 //lock onto enemy and subtract cooldown
                 transform.LookAt(Enemy.transform);
                 objectForward = transform.forward;
