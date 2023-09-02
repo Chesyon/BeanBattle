@@ -14,13 +14,12 @@ public class CosmeticLoader : MonoBehaviour
         if (hat != null) GameObject.Destroy(hat);
 
         //color and stat setup
-        if(gameObject.name != "Bean") selfColor = gameObject.GetComponent<MeshRenderer>().material.color;
         if (cos == -1)
         {
-            if (gameObject.name == "Bean 1") { layerToSet = 7; LoadCos((int)PlayerPrefsX.GetQuaternionArray("beanStats")[0].y); }
-            if (gameObject.name == "Bean 2") { layerToSet = 8; LoadCos((int)PlayerPrefsX.GetQuaternionArray("beanStats")[1].y); }
-            if (gameObject.name == "Bean 3") { layerToSet = 9; LoadCos((int)PlayerPrefsX.GetQuaternionArray("beanStats")[2].y); }
-            if (gameObject.name == "Bean 4") { layerToSet = 10; LoadCos((int)PlayerPrefsX.GetQuaternionArray("beanStats")[3].y); }
+            if (gameObject.name == "Bean 1") { layerToSet = 7; selfColor = PlayerPrefsX.GetColorArray("beanColors")[0];  LoadCos((int)PlayerPrefsX.GetQuaternionArray("beanStats")[0].y); }
+            if (gameObject.name == "Bean 2") { layerToSet = 8; selfColor = PlayerPrefsX.GetColorArray("beanColors")[1];  LoadCos((int)PlayerPrefsX.GetQuaternionArray("beanStats")[1].y); }
+            if (gameObject.name == "Bean 3") { layerToSet = 9; selfColor = PlayerPrefsX.GetColorArray("beanColors")[2];  LoadCos((int)PlayerPrefsX.GetQuaternionArray("beanStats")[2].y); }
+            if (gameObject.name == "Bean 4") { layerToSet = 10; selfColor = PlayerPrefsX.GetColorArray("beanColors")[3]; LoadCos((int)PlayerPrefsX.GetQuaternionArray("beanStats")[3].y); }
             if (gameObject.name == "Bean")
             {
                 selfColor = PlayerPrefsX.GetColorArray("beanColors")[0];
@@ -28,6 +27,7 @@ public class CosmeticLoader : MonoBehaviour
                 LoadCos((int)PlayerPrefsX.GetQuaternionArray("beanStats")[0].y);
             }
         }
+        //if (gameObject.name != "Bean") selfColor = gameObject.GetComponent<MeshRenderer>().material.color;
 
         //load cosmetic based off id
         if (cos == 1)

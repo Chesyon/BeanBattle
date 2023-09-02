@@ -6,7 +6,7 @@ public class BeanAI : MonoBehaviour
 {
     GameObject Enemy;
     GameObject[] gos;
-    List<GameObject> Enemies;
+    public List<GameObject> Enemies;
     int thisBeanID;
     Rigidbody rb;
     Vector3 objectForward;
@@ -98,7 +98,7 @@ public class BeanAI : MonoBehaviour
             {
                 rb.isKinematic = false;
                 //pick a target (may need revision)
-                int closestBeanIndex = 9999;
+                int closestBeanIndex = 0;
                 float closestDistance = 9999;
                 for(int i = 0; i < Enemies.Count - 1; i++)
                 {
@@ -109,7 +109,7 @@ public class BeanAI : MonoBehaviour
                         closestBeanIndex = i;
                     }
                 }
-                Enemy = Enemies[closestBeanIndex];
+                if(Enemies.Count != 0) Enemy = Enemies[closestBeanIndex];
                 //lock onto enemy and subtract cooldown
                 transform.LookAt(Enemy.transform);
                 objectForward = transform.forward;

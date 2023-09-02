@@ -7,6 +7,7 @@ using Cinemachine;
 public class MatchManager : MonoBehaviour
 {
     public List<GameObject> beanList; // a list so we can access each bean
+    public List<BeanAI> AiList;
     bool firstWinFrame; //almost all of the win code is run on the first frame and shouldn't be run more then once
     public AudioSource fallSound; //the sound for when a bean falls
     public float deathYLevel;
@@ -117,6 +118,10 @@ public class MatchManager : MonoBehaviour
                 //make bean die lol
                 Bean.GetComponent<BeanAI>().die = true;
                 fallSound.Play();
+                foreach(BeanAI ai in AiList)
+                {
+                    ai.Enemies.Remove(Bean);
+                }
                 beanList.Remove(Bean);
                 break;
             }
@@ -211,7 +216,7 @@ public class MatchManager : MonoBehaviour
             PlayerPrefsX.SetStringArray("nextRoundNames", blankNameList.ToArray());
             PlayerPrefs.SetInt("roundNumber", roundNumber + 1);
             PlayerPrefs.SetInt("matchNumber", 0);
-            PlayerPrefs.SetInt("maxMatches", nextRoundBeansList.Count / 2);
+            PlayerPrefs.SetInt("maxMatches", nextRoundBeansList.Count / 4);
         }
         if (nextRoundBeansList.Count == 1 && beanColorsList.Count == 0) SceneManager.LoadScene(2); //run if this was the final match
         else { PlayerPrefs.SetInt("matchNumber", PlayerPrefs.GetInt("matchNumber") + 1); SceneManager.LoadScene(1); } //run in any scenario that isn't the above 2
